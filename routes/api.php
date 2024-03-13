@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware("auth:sanctum")->group(function() {
+Route::post('/articles', [\App\Http\Controllers\ArticlesController::class, 'create']);
 
+Route::middleware("auth:sanctum")->group(function() {
 });
