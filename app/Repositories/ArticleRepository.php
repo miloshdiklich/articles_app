@@ -5,18 +5,14 @@ namespace App\Repositories;
 
 
 use App\Models\Article;
-use App\Models\Review;
 
 class ArticleRepository implements \App\Contracts\ArticleRepositoryInterface
 {
 	private Article $article;
 	
-	private Review $review;
-	
-	public function __construct(Article $article, Review $review)
+	public function __construct(Article $article)
 	{
 		$this->article = $article;
-		$this->review = $review;
 	}
 	
 	public function create(array $data, int $userId): Article | false
@@ -61,15 +57,4 @@ class ArticleRepository implements \App\Contracts\ArticleRepositoryInterface
 			->get(['id', 'title', 'description', 'created_at']);
 	}
 	
-	public function postReview(array $data, int $userId): bool
-	{
-		$review = new $this->review;
-		$review->article_id = $data['article_id'];
-		$review->user_id = $userId;
-		$review->approved = $data['approved'];
-		$review->created_at = \Date::now();
-		$review->updated_at = \Date::now();
-		
-		return (bool)$review->save();
-	}
 }

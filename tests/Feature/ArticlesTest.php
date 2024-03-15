@@ -75,7 +75,7 @@ test('reviewer can see posted articles with pending status', function () {
 
 	$this->actingAs($user);
 
-	$response = $this->get('/api/articles/review');
+	$response = $this->get('/api/reviews');
 
 	$response
 		->assertStatus(200)

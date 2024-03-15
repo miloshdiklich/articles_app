@@ -10,4 +10,9 @@ class Review extends Model
 	use HasFactory;
 	
 	public $timestamps = false;
+	
+	public function article()
+	{
+		return $this->belongsTo(Article::class);
+	}
 }

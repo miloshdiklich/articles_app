@@ -26,10 +26,10 @@ Route::middleware('auth:sanctum')->group(function() {
 	
 	//Articles
 	Route::get('/articles', [\App\Http\Controllers\ArticlesController::class, 'getAuthorArticles'])->middleware('roles:author');
-	Route::get('/articles/review', [\App\Http\Controllers\ArticlesController::class, 'getPendingArticles'])->middleware('roles:reviewer');
-	Route::post('/articles/review', [\App\Http\Controllers\ArticlesController::class, 'postArticleReview'])->middleware('roles:reviewer');
 	
 	//Reviews
-	Route::get('/reviews/stats', [\App\Http\Controllers\ReviewsController::class, 'getReviewStats'])->middleware('roles:reviewer');
+	Route::get('/reviews/stats', [\App\Http\Controllers\ReviewsController::class, 'getReviewedArticlesWithStats'])->middleware('roles:reviewer');
+	Route::get('/reviews', [\App\Http\Controllers\ReviewsController::class, 'getPendingArticles'])->middleware('roles:reviewer');
+	Route::post('/reviews', [\App\Http\Controllers\ReviewsController::class, 'postArticleReview'])->middleware('roles:reviewer');
 	
 });

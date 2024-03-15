@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\ArticleRepositoryInterface;
-use App\Contracts\UserRepositoryInterface;
-use App\Http\Resources\ArticleResource;
 use Illuminate\Http\Request;
+use App\Http\Resources\ArticleResource;
+use App\Contracts\UserRepositoryInterface;
+use App\Contracts\ArticleRepositoryInterface;
 
 class ArticlesController extends ApiController
 {
@@ -51,19 +51,6 @@ class ArticlesController extends ApiController
 		return $this->respondCreated(ArticleResource::make($article));
 	}
 	
-	/**
-	 * @return string
-	 */
-	public function getPendingArticles()
-	{
-		$articles = $this->article->getPending();
-		
-		if(!$articles)
-			return $this->respondInternalError();
-		
-		return $this->respondSuccess(ArticleResource::collection($articles));
-	}
-	
 	public function getAuthorArticles()
 	{
 		$articles = $this->article->getByAuthor(auth()->user()->id);
@@ -75,32 +62,4 @@ class ArticlesController extends ApiController
 		
 	}
 	
-	public function postArticleReview(Request $request)
-	{
-		$data = [
-			'article_id' => $request->input('article_id'),
-			'approved' => $request->input('approved')
-		];
-		
-		$validator = \Validator::make($data, [
-			'article_id' => 'required|numeric',
-			'approved' => 'required|numeric'
-		]);
-		
-		if($validator->fails()) {
-			return $this->respondValidationError('Invalid data.', $validator->errors()->first());
-		}
-		
-		if( !$this->article->getById($data['article_id']) ) {
-			return $this->respondNotFound('Article not found.');
-		}
-		
-		$review = $this->article->postReview($data, auth()->user()->id);
-		
-		if(!$review)
-			return $this->respondInternalError();
-		
-		return $this->respondSuccess([]);
-		
-	}
 }
