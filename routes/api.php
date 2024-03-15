@@ -19,6 +19,7 @@ Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login']);
 
 
 Route::middleware('auth:sanctum')->group(function() {
+	
 	// Auth
 	Route::get('/me', [\App\Http\Controllers\LoginController::class, 'getMe']);
 	Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'logout']);
@@ -27,5 +28,8 @@ Route::middleware('auth:sanctum')->group(function() {
 	Route::get('/articles', [\App\Http\Controllers\ArticlesController::class, 'getAuthorArticles'])->middleware('roles:author');
 	Route::get('/articles/review', [\App\Http\Controllers\ArticlesController::class, 'getPendingArticles'])->middleware('roles:reviewer');
 	Route::post('/articles/review', [\App\Http\Controllers\ArticlesController::class, 'postArticleReview'])->middleware('roles:reviewer');
+	
+	//Reviews
+	Route::get('/reviews/stats', [\App\Http\Controllers\ReviewsController::class, 'getReviewStats'])->middleware('roles:reviewer');
 	
 });
