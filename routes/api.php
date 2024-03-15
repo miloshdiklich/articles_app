@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/articles', [\App\Http\Controllers\ArticlesController::class, 'create']);
+Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login']);
 
-Route::middleware("auth:sanctum")->group(function() {
+
+Route::middleware('auth:sanctum')->group(function() {
+	// Auth
+	Route::get('/me', [\App\Http\Controllers\LoginController::class, 'getMe']);
+	Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'logout']);
+	
+	//Articles
+	Route::get('/articles', [\App\Http\Controllers\ArticlesController::class, 'getAuthorArticles'])->middleware('roles:author');
+	Route::get('/articles/review', [\App\Http\Controllers\ArticlesController::class, 'getPendingArticles'])->middleware('roles:reviewer');
+	Route::post('/articles/review', [\App\Http\Controllers\ArticlesController::class, 'postArticleReview'])->middleware('roles:reviewer');
+	
 });

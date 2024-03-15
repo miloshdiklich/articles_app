@@ -98,7 +98,7 @@ class ApiController extends Controller
 	
 	/**
 	 * @param string $message
-	 * @return JsonResponse|mixed
+	 * @return JsonResponse
 	 */
 	public function respondNotFound(string $message = 'Resource not found.'): JsonResponse
 	{
@@ -116,7 +116,7 @@ class ApiController extends Controller
 		$this->setStatusCode(Response::HTTP_FORBIDDEN);
 		
 		return $this->respond([
-			'status' => 'unauthorized',
+			'status' => 'forbidden',
 			'status_code' => $this->getStatusCode(),
 			'message' => $message,
 		]);

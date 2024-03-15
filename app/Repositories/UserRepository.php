@@ -15,13 +15,24 @@ class UserRepository implements \App\Contracts\UserRepositoryInterface
 		$this->user = $user;
 	}
 	
-	public function canPublishArticle($email): bool
+	public function exists($email): bool
 	{
-		return $this->user
-			->whereEmail($email)
-			->with('role')
-			->first()
-			->role
-			->name === 'author';
+		return $this->user->whereEmail($email)->exists();
 	}
+	
+	public function getByEmail($email): User
+	{
+		return $this->user->whereEmail($email)->with('role')->first();
+	}
+	
+	public function isAuthor($email): bool
+	{
+		return $this->getByEmail($email)->role->name === "author";
+	}
+	
+	public function isReviewer($email): bool
+	{
+		return $this->getByEmail($email)->role->name === "reviewer";
+	}
+	
 }
