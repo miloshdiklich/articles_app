@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+		
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"paths": {
+			"@/*": ["./src/*"],
+			"@components/*": ["./src/components/*"],
+			"@ui/*": ["./src/components/ui/*"],
+			"@pages/*": ["./src/pages/*"],
+			"@hooks/*": ["./src/hooks/*"],
+			"@api/*": ["./src/api/*"],
+			"@utils/*": ["./src/utils/*"],
+			"@assets/*": ["./src/assets/*"],
+			"@types*": ["./src/types.ts"],
+			"@theme*": ["./src/theme.tsx"],
+			"@layouts/*": ["./src/layouts/*"],
+			"@services/*": ["./src/services/*"]
+		},
+		"types": ["vite-plugin-svgr/client"]
+	},
+	"include": ["src"],
+	"references": [{ "path": "./tsconfig.node.json" }]
+}
