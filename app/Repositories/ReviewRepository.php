@@ -60,7 +60,6 @@ class ReviewRepository implements \App\Contracts\ReviewRepositoryInterface
 			}
 		}
 		
-		
 		return [
 			'reviewed' => $reviews,
 			'approved' => number_format(count($approved) / $total * 100) . '%',

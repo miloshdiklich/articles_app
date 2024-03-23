@@ -34,13 +34,11 @@ class LoginController extends ApiController
 	
 	public function logout()
 	{
-		try {
-			Auth::guard('web')->logout();
-			return $this->respondSuccess([]);
-		}
-		catch( \Exception $e ) {
-			\Log::error($e->getMessage());
-		}
+		Auth::guard('web')->logout();
+		
+		return Auth::guard('web')->check() ?
+			$this->respondUnauthorized() :
+			$this->respondSuccess(null);
 	}
 	
 }
