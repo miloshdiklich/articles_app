@@ -168,6 +168,7 @@ return [
 		// App\Providers\BroadcastServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
 		App\Providers\ArticleServiceProvider::class,
 		App\Providers\UserServiceProvider::class,
 		App\Providers\ReviewServiceProvider::class,
